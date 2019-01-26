@@ -41,3 +41,10 @@ def cp_request(sa_session):
     r.db = sa_session
     yield r
     patcher.stop()
+
+
+@pytest.fixture
+def cp_response(sa_session):
+    patcher = patch('cherrypy.response', autospec=True)
+    yield patcher.start()
+    patcher.stop()
